@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Container, Form, Button, ListGroup } from 'react-bootstrap'
-import db from '../db/db'
+import firebase from '../db/firebase'
 
 const App = () => {
   const [ validated, setValidated ] = useState(false)
