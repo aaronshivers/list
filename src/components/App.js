@@ -24,7 +24,7 @@ const App = ({ uid }) => {
   }
 
   const removeItem = itemToDelete => {
-    setList(list.filter(curItem => curItem !== itemToDelete))
+    setList(list.filter(curItem => curItem.item !== itemToDelete))
   }
 
   useEffect(() => {
@@ -90,7 +90,10 @@ const Item = ({ curItem, removeItem }) => {
   }, [])
 
   return (
-    <ListGroup.Item>{ curItem.item }</ListGroup.Item>
+    <ListGroup.Item>
+      <span>{ curItem.item }</span>
+      <Button variant="danger" className="float-right" onClick={ () => removeItem(curItem.item) }>X</Button>
+    </ListGroup.Item>
   )
 }
 
