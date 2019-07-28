@@ -2,27 +2,19 @@ import React from 'react'
 import { render } from 'react-dom'
 import { firebase } from './db/firebase'
 import App from './components/App'
+import SignIn from './components/SignIn'
 import './styles/styles.scss'
-// import SignIn from './SignIn'
 
-render(<App />, document.getElementById('app'))
+firebase.auth().onAuthStateChanged(user => {
 
-const toggleSignIn = () => {
+  if (user) {
 
-  if (firebase.auth().currentUser) {
-
-    firebase.auth().signout()
-
-  } else {
+    const uid = user.uid
     
-    try {
+    render(<App uid={ uid } />, document.getElementById('app'))
+  
+  } else {
 
-      firebase.auth().signInAnonymously()
-
-    } catch (error) {
-
-      console.error(error)
-
-    }
+    render(<SignIn />, document.getElementById('app'))
   }
-}
+})

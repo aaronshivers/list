@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import { Container, Form, Button, ListGroup } from 'react-bootstrap'
 import firebase from '../db/firebase'
+import LoginButton from './LoginButton'
 
-const App = () => {
+const App = ({ uid }) => {
   const [ validated, setValidated ] = useState(false)
   const [ todo, setTodo ] = useState('')
   const [ list, setList ] = useState([])
@@ -15,6 +16,7 @@ const App = () => {
       e.stopPropagation()
     } else {
       setList(list => setList([ todo, ...list ]))
+      setTodo('')
     }
 
     setValidated(true)
@@ -31,6 +33,9 @@ const App = () => {
 
   return (
     <Container>
+
+      <LoginButton uid={ uid } />
+
       <h1 className="display-4 text-center">todo-react</h1>
 
       <Form noValidate validated={ validated } onSubmit={ handleOnSubmit }>
