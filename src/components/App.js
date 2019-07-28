@@ -1,53 +1,58 @@
 import React, { useState, useEffect } from 'react'
 import { Container, Form, Button, ListGroup } from 'react-bootstrap'
-import firebase from '../db/firebase'
-import LoginButton from './LoginButton'
+// import firebase from '../db/firebase'
+// import database from '../db/firebase'
+// import LoginButton from './LoginButton'
 
 const App = ({ uid }) => {
   const [ validated, setValidated ] = useState(false)
-  const [ todo, setTodo ] = useState('')
   const [ list, setList ] = useState([])
+  const [ item, setItem ] = useState('')
 
-  const handleOnSubmit = e => {
+  const addItem = e => {
     e.preventDefault()
     const form = e.currentTarget
 
     if (form.checkValidity() === false) {
       e.stopPropagation()
     } else {
-      setList(list => setList([ todo, ...list ]))
-      setTodo('')
+      setList([ { item }, ...list ])
+      setItem('')
     }
 
     setValidated(true)
   }
 
+  const removeItem = itemToDelete => {
+    setList(list.filter(curItem => curItem !== itemToDelete))
+  }
+
   useEffect(() => {
-    console.log('run once')
+    const listData = JSON.parse(localStorage.getItem('list'))
+    if (listData) setList(listData)
   }, [])
 
-
   useEffect(() => {
-    console.log('list', list)
+    localStorage.setItem('list', JSON.stringify(list))
   }, [list])
 
   return (
     <Container>
 
-      <LoginButton uid={ uid } />
+      {/*<LoginButton uid={ uid } />*/}
 
-      <h1 className="display-4 text-center">todo-react</h1>
+      <h1 className="display-4 text-center">List</h1>
 
-      <Form noValidate validated={ validated } onSubmit={ handleOnSubmit }>
+      <Form noValidate validated={ validated } onSubmit={ addItem }>
 
-        {/* Todo */}
-        <Form.Group controlId="todo">
+        {/* Item */}
+        <Form.Group controlId="item">
           <Form.Control
             size="lg"
             type="text"
-            placeholder="Todo..."
-            value={ todo }
-            onChange={ e => setTodo(e.target.value) }
+            placeholder="Item..."
+            value={ item }
+            onChange={ e => setItem(e.target.value) }
             required
           />
         </Form.Group>
@@ -58,22 +63,34 @@ const App = ({ uid }) => {
           variant="primary"
           type="submit"
         >
-          Add Todo
+          Add Item
         </Button>
 
       </Form>
 
-      <hr />
+      <hr className="border" />
 
       <ListGroup>
         {
-          list && list.map((item, i) => (
-            <ListGroup.Item key={ i }>{ item }</ListGroup.Item>
+          list && list.map((curItem, i) => (
+            <Item key={ i } curItem={ curItem } removeItem={ removeItem } />
           ))
         }
       </ListGroup>
 
     </Container>
+  )
+}
+
+const Item = ({ curItem, removeItem }) => {
+  useEffect(() => {
+    console.log('Setting up effect')
+
+    return () => console.log('cleaning up effect')
+  }, [])
+
+  return (
+    <ListGroup.Item>{ curItem.item }</ListGroup.Item>
   )
 }
 
