@@ -9,7 +9,7 @@ import './styles/styles.scss'
 firebase.auth().onAuthStateChanged(user => {
 
   render(
-    <UserContext.Provider value={ user }>
+    <UserContext.Provider value={ { uid: user.uid } }>
       { user ? <ListApp /> : <SignIn /> }
     </UserContext.Provider>
     , document.getElementById('app'))

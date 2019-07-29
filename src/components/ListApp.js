@@ -1,7 +1,6 @@
 import React, { useEffect, useReducer } from 'react'
 import { Container, Button} from 'react-bootstrap'
 // import firebase from '../db/firebase'
-// import database from '../db/firebase'
 import ListContext from '../context/list-context'
 import listReducer from '../reducers/list'
 import AddItemForm from './AddItemForm'
