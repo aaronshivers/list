@@ -2,18 +2,14 @@ import React, { useEffect, useReducer } from 'react'
 import { Container, Button} from 'react-bootstrap'
 // import firebase from '../db/firebase'
 // import database from '../db/firebase'
+import ListContext from '../context/list-context'
 import listReducer from '../reducers/list'
-import Item from './Item'
 import AddItemForm from './AddItemForm'
-import ListComponent from './ListComponent'
+import List from './List'
 // import LoginButton from './LoginButton'
 
 const ListApp = ({ uid }) => {
   const [ list, dispatch ] = useReducer(listReducer, [])
-
-  const removeItem = item => {
-    dispatch({ type: 'REMOVE_ITEM', item })
-  }
 
   useEffect(() => {
     const list = JSON.parse(localStorage.getItem('list'))
@@ -27,24 +23,21 @@ const ListApp = ({ uid }) => {
   }, [list])
 
   return (
-    <Container>
+    <ListContext.Provider value={ {  list, dispatch  } }>
+      <Container>
 
-      {/*<LoginButton uid={ uid } />*/}
+        {/*<LoginButton uid={ uid } />*/}
 
-      <h1 className="display-4 text-center">List</h1>
+        <h1 className="display-4 text-center">List</h1>
 
-      <AddItemForm
-        dispatch={ dispatch }
-      />
+        <AddItemForm/>
 
-      <hr className="border" />
+        <hr className="border" />
 
-      <ListComponent
-        list={ list }
-        removeItem={ removeItem }
-      />
+        <List/>
 
-    </Container>
+      </Container>
+    </ListContext.Provider>
   )
 }
 

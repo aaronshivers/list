@@ -1,7 +1,9 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { Form, Button } from 'react-bootstrap'
+import ListContext from '../context/list-context'
 
-const AddItemForm = ({ dispatch }) => {
+const AddItemForm = () => {
+  const { dispatch } = useContext(ListContext)
   const [ validated, setValidated ] = useState(false)
   const [ item, setItem ] = useState('')
 
