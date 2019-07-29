@@ -7,14 +7,8 @@ import './styles/styles.scss'
 
 firebase.auth().onAuthStateChanged(user => {
 
-  if (user) {
+  const component = user ? <App uid={ user.uid } /> : <SignIn />
 
-    const uid = user.uid
-    
-    render(<App uid={ uid } />, document.getElementById('app'))
-  
-  } else {
+  render(component, document.getElementById('app'))
 
-    render(<SignIn />, document.getElementById('app'))
-  }
 })
