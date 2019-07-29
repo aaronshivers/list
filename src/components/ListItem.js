@@ -2,12 +2,6 @@ import React, { useContext } from 'react'
 import { ListGroup, Button } from 'react-bootstrap'
 import ListContext from '../context/list-context'
 
-const useMousePosition = () => {
-  const [ position, setPosition ] = useState({ x: 0, y: 0 })
-
-  return position
-}
-
 const ListItem = ({ itemObject: { item } }) => {
   const { dispatch } = useContext(ListContext)
 
