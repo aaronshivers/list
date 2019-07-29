@@ -8,7 +8,7 @@ import AddItemForm from './AddItemForm'
 import List from './List'
 // import LoginButton from './LoginButton'
 
-const ListApp = ({ uid }) => {
+const ListApp = () => {
   const [ list, dispatch ] = useReducer(listReducer, [])
 
   useEffect(() => {
