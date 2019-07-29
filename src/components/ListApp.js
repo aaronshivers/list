@@ -24,7 +24,7 @@ const ListApp = ({ uid }) => {
 
   return (
     <ListContext.Provider value={ {  list, dispatch  } }>
-      <Container>
+      <Container className="mt-3 mb-3">
 
         {/*<LoginButton uid={ uid } />*/}
 
