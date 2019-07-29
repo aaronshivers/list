@@ -91,7 +91,7 @@ const Item = ({ curItem, removeItem }) => {
 
   return (
     <ListGroup.Item>
-      <span>{ curItem.item }</span>
+      <span className="item-text">{ curItem.item }</span>
       <Button variant="danger" className="float-right" onClick={ () => removeItem(curItem.item) }>X</Button>
     </ListGroup.Item>
   )
