@@ -1,16 +1,15 @@
 import React from 'react'
 import { render } from 'react-dom'
 import { firebase } from './db/firebase'
-import UserContext from './context/user-context'
 import ListApp from './components/ListApp'
-import SignIn from './components/SignIn'
+import LoginPage from './components/LoginPage'
 import './styles/styles.scss'
 
 firebase.auth().onAuthStateChanged(user => {
 
-  render(
-    <UserContext.Provider value={ { uid: user.uid } }>
-      { user ? <ListApp /> : <SignIn /> }
-    </UserContext.Provider>
-    , document.getElementById('app'))
+  const jsx = user ?
+    <ListApp uid={ { uid: user.uid } } /> :
+    <LoginPage />
+
+  render(jsx, document.getElementById('app'))
 })

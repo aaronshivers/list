@@ -1,12 +1,10 @@
 import React, { useContext } from 'react'
 import { ListGroup, Button } from 'react-bootstrap'
-import ListContext from '../context/list-context'
-import UserContext from '../context/user-context'
+import Context from '../context/context'
 import database from '../db/firebase'
 
 const ListItem = ({ itemObject: { item } }) => {
-  const { dispatch } = useContext(ListContext)
-  const { uid } = useContext(UserContext)
+  const { uid, dispatch } = useContext(Context)
 
   const deleteItemFromFirebase = item => {
     return database

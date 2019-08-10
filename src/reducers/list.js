@@ -5,12 +5,8 @@ const listReducer = (state, action) => {
     case 'POPULATE_LIST':
       return action.list
     case 'ADD_ITEM':
+      // console.log(action.item, ...state)
       return [ { item: action.item }, ...state ]
-    case 'ADD_ITEM_TO_FIREBASE':
-      console.log(state)
-      return database
-        .ref(`users/${ uid }/list`)
-        .push(item)
     case 'REMOVE_ITEM':
       return state.filter(list => list.item !== action.item)
     default:

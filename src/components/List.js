@@ -1,10 +1,10 @@
 import React, { useContext } from 'react'
 import { ListGroup } from 'react-bootstrap'
 import ListItem from './ListItem'
-import ListContext from '../context/list-context'
+import Context from '../context/context'
 
 const List = () => {
-  const { list } = useContext(ListContext)
+  const { list } = useContext(Context)
 
   return (
     <ListGroup>

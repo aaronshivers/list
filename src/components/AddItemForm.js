@@ -1,20 +1,12 @@
 import React, { useState, useContext } from 'react'
 import { Form, Button } from 'react-bootstrap'
 import database from '../db/firebase'
-import ListContext from '../context/list-context'
-import UserContext from '../context/user-context'
+import Context from '../context/context'
 
 const AddItemForm = () => {
-  const { dispatch } = useContext(ListContext)
-  const { uid } = useContext(UserContext)
+  const { uid, dispatch } = useContext(Context)
   const [ validated, setValidated ] = useState(false)
   const [ item, setItem ] = useState('')
-
-  const addToFirebase = item => {
-    return database
-      .ref(`users/${ uid }/list`)
-      .push(item)
-  }
 
   const addItem = e => {
     e.preventDefault()
@@ -24,7 +16,6 @@ const AddItemForm = () => {
       e.stopPropagation()
     } else {
       dispatch({ type: 'ADD_ITEM', item })
-      addToFirebase(item)
       setItem('')
     }
 
@@ -33,7 +24,7 @@ const AddItemForm = () => {
 
   return (
 
-    <Form noValidate validated={ validated } onSubmit={ addItem }>
+    <Form noValidate validated={ validated } onSubmit={ addItem } >
 
       {/* Item */}
       <Form.Group controlId="item">
